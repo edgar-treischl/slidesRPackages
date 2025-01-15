@@ -1,0 +1,1032 @@
+---
+title: "Make it reproducibleR"
+date: "Last update: `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["xaringan-themer.css", "styles.css"] 
+    seal: false
+    #chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: [center, middle]
+---
+
+class: center, middle
+
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+library(ggplot2)
+library(tidyverse)
+library(readr)
+library(gridExtra)
+library(cowplot)
+
+#library(jtools)
+
+
+knitr::opts_chunk$set(fig.retina = 3, 
+                      warning = FALSE, 
+                      message = FALSE)
+
+
+
+theme_set(theme_minimal(base_size = 20)) # sets a default ggplot theme
+
+#has_bash <- Sys.which('bash') != '' && .Platform$OS.type != 'windows'
+
+library(RefManageR)
+bib <- ReadBib("PracticeR_FINAL.bib", check = FALSE)
+ui <- "- "
+```
+
+
+
+
+```{r best-features, echo=FALSE}
+#search
+xaringanExtra::use_search(show_icon = TRUE, position = "top-right")
+
+xaringanExtra::use_progress_bar(color = "#023047", location = "top")
+
+xaringanExtra::style_search(match_background = "black",
+                            input_background = "white",
+                            input_border = "black",
+                            match_current_background = "green")
+
+
+xaringanExtra::use_panelset()
+
+xaringanExtra::use_clipboard()
+
+```
+
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "black",
+  header_font_google = google_font("Lato"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Code")
+)
+```
+
+```{r meta, echo=FALSE}
+library(metathis)
+meta() %>%
+  meta_general(
+    description = "A overview how to put R code into production.",
+    generator = "xaringan and remark.js"
+  ) %>% 
+  meta_name("github-repo" = "edgar-treischl/Workshop_GitHubIntro") %>% 
+  meta_social(
+    title = "Make it reproducibleR: Put R in Production",
+    url = "https://edgar-treischl.github.io/Workshop_reproducibleR/",
+    og_type = "website",
+    og_author = "Edgar J. Treischl"
+  )
+```
+
+
+  
+# R Package Develop
+
+## Work in Progess
+
+.large[Dr. Edgar J. Treischl] <br>
+<a href="http://www.edgar-treischl.de" target="_blank">www.edgar-treischl.de</a>
+<br/>
+<br/>
+.large[Last update: `r Sys.Date()`]
+<br/>
+<br/>
+This presentation is licensed under a CC-BY-NC 4.0 license.
+You may copy, distribute, and use the slides in your own work, as long as you give attribution to the original author on each slide that you use. Commercial use of the contents of these slides is not allowed.
+
+<div class="remark-footer">
+  <!-- Left-aligned image -->
+  <img src="images/by-nceu.png" alt="Image left" width="150px" class="footer-left"/>
+  
+  <!-- Right-aligned GitHub logo -->
+  <a href="https://github.com/edgar-treischl/Workshop_reproducibleR" target="_blank">
+    <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" 
+         alt="GitHub logo" class="footer-right"/>
+  </a>
+</div>
+
+
+
+
+```{css, echo = F}
+.reduced_opacity {
+  opacity: 0.5;
+}
+```
+
+
+---
+## Agenda
+
+
+
+
+.pull-left[
+
+
+### 01 Develop `r emoji::emoji("invent")`
+### 02 Build `r emoji::emoji("construction")`
+### 03 Document `r emoji::emoji("document")`
+### 04 Deploy `r emoji::emoji("run")`
+
+
+
+
+
+]
+
+.pull-right[
+
+
+]
+
+
+
+
+
+
+
+---
+## 01: Why R Packages?
+
+### I will not create something like ggplot2, so why should I create a package anyway? `r emoji::emoji("crazy")` 
+
+.pull-left[
+
+- *Reusability and Distribution*: Make sure everything needed to run is available. Plus: simplifies version control, dependency management, and installation.
+- *Organization and Maintainability*: A package encourages a clean and organized code, making it easier to maintain, update, and extend over time.
+
+- *Documentation*: A package allows to include automatic documentation (help files, website, vignettes) , making it much easier for others - and the future yourself - to understand how it works.
+
+
+]
+
+.pull-right[
+<figure>
+    <a href="https://r-pkgs.org" target="_blank"><img src="https://r-pkgs.org/images/cover-2e-small.png" alt="www.edgar-treischl.de" width="65%"/>
+</figure>
+]
+
+---
+## 02: devtools does the heavy lifting `r emoji::emoji("weight")`
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`</i> "The aim of devtools is to make package development easier by providing R functions that simplify and expedite common tasks. R Packages is a book based around this workflow." (Wickham et al. 2022)
+</div>
+
+
+.pull-left[
+
+
+
+<figure>
+    <a href="https://devtools.r-lib.org" target="_blank"><img src="images/devtools.png" alt="www.edgar-treischl.de" width="65%" align="right"/>
+</figure>
+
+]
+
+.pull-right[
+<figure>
+    <a href="https://devtools.r-lib.org" target="_blank"><img src="https://devtools.r-lib.org/logo.svg" alt="www.edgar-treischl.de" width="55%" align="center"/>
+</figure>
+]
+
+
+
+---
+## 02: usethis
+
+
+
+.pull-left[
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`</i> "usethis is a workflow package: it automates repetitive tasks that arise during project setup and development, both for R packages and non-package projects." (Wickham et al. 2022)
+</div>
+
+
+]
+
+.pull-right[
+<figure>
+    <a href="https://usethis.r-lib.org/" target="_blank"><img src="https://usethis.r-lib.org/logo.png" alt="www.edgar-treischl.de" width="55%" align="center"/>
+</figure>
+]
+
+
+
+---
+background-image: url(https://i.gifer.com/8rTu.gif)
+background-size: cover
+class: bottom, center
+
+
+
+
+## .white[Let's get started ... `r emoji::emoji("evil")`] 
+
+<div class="remark-footer"><a href="https://gifer.com/de/8rTu" target="_blank" style="color: black;">Source: Mark Hamill</a></div>
+
+
+
+---
+
+## 02: Steps to create a package
+
+.pull-left[
+
+1. Create a new repository on GitHub/GitLab and clone it
+2. Create a package a package via: 
+
+```{r, eval=FALSE}
+# create_package adds ...
+usethis::create_package(here::here())
+```
+
+
+]
+
+.pull-right[
+
+```{bash
+Package: TestPackage
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Jane", "Doe",
+      email = "jane@example.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: More about what it does (maybe more than one line).
+    Continuation lines should be indented.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+
+```
+
+
+]
+
+
+
+
+
+
+
+
+
+
+
+---
+background-image: url(https://styler.r-lib.org/reference/figures/logo.png)
+background-position: 90% 5%
+background-size: 8%
+
+## 01: Develop With Style(r)
+
+
+.pull-left[
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`️️</i> "styler formats your code according to the tidyverse style guide (https://style.tidyverse.org) (or your custom style guide) so you can direct your attention to the content of your code" (Müller and Walthert 2024).
+</div>
+
+
+]
+
+.pull-right[
+
+```{r}
+styler::style_text(
+  "myFunction<-function( x,y){
+  if(sum( x , y )==10){
+    print( 'Sum is correct!' )
+  }
+}"
+)
+
+```
+
+]
+
+
+There a goodies if you develop an R package:
+
+```{r, eval=FALSE}
+styler::style_pkg()
+```
+
+
+
+
+
+
+
+---
+background-image: url(https://github.com/r-lib/lintr/blob/main/man/figures/logo.png?raw=true)
+background-position: 90% 5%
+background-size: 8%
+
+
+## 01: Lintr
+
+
+
+.pull-left[
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`️</i>"lintr provides static code analysis for R. It checks for adherence to a given style, identifying syntax errors and possible semantic issues, then reports them to you so you can take action" (Hester et al. 2024).
+</div>
+
+
+]
+
+.pull-right[
+
+```{r}
+lintr::lint(text = 'myFunction <- function(x, y) {
+  if (sum(x, y) == 10) {
+    print("Sum is correct!")
+  }
+}')
+```
+
+]
+
+
+
+There are even more goodies `r emoji::emoji("bad")` if you develop an R package:
+
+```{r, eval=FALSE}
+#lintr::lint_dir(path = "R")
+lintr::lint_package()
+```
+
+
+
+
+
+
+
+
+
+---
+background-image: url(https://usethis.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
+## 02: Github Actions
+
+.pull-left[
+
+Continuous Integration/Continuous Deployment:
+
+1. *Reliability via Automated Testing*: We can automatically run tests on every commit, ensuring that code changes don't break functionality.
+
+2. *Consistent Environments*: CI/CD pipelines define reproducible environments, ensuring that the code runs the same way on every machine, regardless the local setup.
+
+3. *Effortless Deployment*: With GitHub Actions, you can automate the deployment of R Markdown reports, Shiny apps, R packages, and so on.
+
+]
+
+.pull-right[
+
+```yaml
+# Workflow from: https://github.com/r-lib/actions/tree/v2/examples
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+name: R-CMD-check
+
+jobs:
+  R-CMD-check:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+    steps:
+      - uses: actions/checkout@v3
+
+...
+```
+
+]
+
+
+---
+background-image: url(https://usethis.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
+
+## 02: Github Actions and usethis
+
+
+
+Usethis has predefined workflows for:
+
+```{r, eval = FALSE}
+usethis::use_github_action()
+
+# Which action do you want to add? (0 to exit)
+# (See <https://github.com/r-lib/actions/tree/v2/examples> for other options) 
+# 
+# 1: check-standard: Run `R CMD check` on Linux, macOS, and Windows
+# 2: test-coverage: Compute test coverage and report to https://about.codecov.io
+# 3: pr-commands: Add /document and /style commands for pull requests
+```
+
+
+---
+background-image: url("https://i.gifer.com/8Bx3.gif")
+background-size: cover
+class: bottom, center
+
+# .black[... but don't forget to test `r emoji::emoji("silly")`] 
+
+
+<div class="remark-footer"><a href="https://gifer.com/de/8Bx3" target="_blank" style="color: black;">Source: Gifer</a></div>
+
+---
+background-image: url(https://testthat.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
+## 02: testthat
+
+<br/>
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`</i> "Testing your code can be painful and tedious, but it greatly increases the quality of your code. testthat tries to make testing as fun as possible, so that you get a visceral satisfaction from writing tests. Testing should be addictive, so you do it all the time. (Wickham 2011)"
+</div>
+
+<br/>
+
+.pull-left[
+
+```{r, eval =FALSE}
+#Set up the test infrastructure
+# And build a test
+usethis::use_test("name")
+```
+
+]
+
+.pull-right[
+
+<img src="images/testRStudio.png" style="width: 90%"/>
+
+]
+
+
+---
+background-image: url(https://covr.r-lib.org/reference/figures/logo.png)
+background-position: 90% 5%
+background-size: 8%
+## 02: covr
+
+
+.panelset[
+
+.panel[.panel-name[Test Coverage]
+
+.pull-left[
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`️</i>"Track test coverage for your R package and view reports locally or (optionally) upload the results to codecov or coveralls. (Hester 2023)"
+</div>
+
+```{r, eval =FALSE}
+# Inspect the test coverage
+covr::report()
+```
+
+
+]
+.pull-right[
+
+<img src="images/covr1.png" style="width: 90%"/>
+
+]
+
+
+]
+
+
+.panel[.panel-name[Tracked Source]
+ <img src="images/covr.png" style="width: 90%"/>
+]
+
+]
+
+
+
+
+
+---
+background-image: url(https://i.gifer.com/15X0.gif)
+background-size: cover
+class: bottom, center
+
+
+## .red[Documentation]
+
+<div class="remark-footer"><a href="https://www.sarah-johnson.com/personal-art" target="_blank" style="color: black;">Source: Sarah Johnson</a></div>
+
+
+---
+background-image: url(https://roxygen2.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
+## 03 Document: roxygen2
+
+.pull-left[
+
+### Describe your functions and ...
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`️</i> "... roxygen2 will process your source code and comments to automatically generate .Rd files in man/, NAMESPACE, and, if needed, the Collate field in DESCRIPTION.". (Wickham and Csárdi 2024)
+</div>
+
+
+
+- Help files for your functions will be available
+
+- The pkgdown package will use the roxygen2 comments to create a website for your package
+
+]
+
+.pull-right[
+
+
+```{r, eval =FALSE}
+#' Function title
+#' 
+#' @description What does this `add` function.
+#' 
+#' @param x Function parameter.
+#' @param y Function parameter.
+#'
+#' @return A number.
+#'
+#' @examples
+#' add(1, 1)
+
+#' @export
+add <- function(x, y) {
+  x + y
+}
+```
+
+]
+
+
+
+
+
+---
+
+## 03 Document: pkgdown
+
+.pull-left[
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`️</i> "The goal of pkgdown is to make it easy to make an elegant and useful package website with a minimum of work. You can get a basic website up and running in just a couple of minutes. If you’re using GitHub, we recommend setting up pkgdown and GitHub actions to automatically build and publish your site". (Wickham et al. 2024)
+</div>
+
+
+]
+
+.pull-right[
+<figure>
+    <a href="https://pkgdown.r-lib.org" target="_blank"><img src="https://pkgdown.r-lib.org/logo.png" alt="https://pkgdown.r-lib.org" width="50%" align="center"/>
+</figure>
+]
+
+<br>
+
+
+
+
+
+
+
+
+---
+background-image: url(https://pkgdown.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
+
+## 03 Document: pkgdown
+<br>
+<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:97%;">
+  <iframe src="https://pkgdown.r-lib.org" width="500" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
+</div>
+
+
+
+---
+background-image: url(https://pkgdown.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
+
+## 03 Document: pkgdown
+
+### Create a pkgdown website via:
+
+.pull-left[
+
+```{r, eval=FALSE}
+#usethis creates config file: => _pkgdown.yml config file
+usethis::use_pkgdown()
+
+#Build the website via:
+pkgdown::build_site()
+```
+
+### `r emoji::emoji("rocket")` via GitHub Actions:
+
+```{r, eval=FALSE}
+#Add corresponding GHA to deploy each time you push to GitHub
+usethis::use_pkgdown_github_pages()
+```
+
+
+
+
+]
+
+.pull-right[
+
+```yaml
+# _pkgdown.yml
+url: https://edgar-treischl.github.io/ProjectX/
+template:
+  bootstrap: 5
+  bootswatch: litera
+  bslib:
+    base_font: {google: "Solway"}
+    heading_font: {google: "Solway"}
+navbar:
+...
+```
+
+
+]
+
+
+
+
+
+---
+background-image: url("https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnVmNnQzM2NzYWJuNDR5M2xoZGxtbnU4eWg2OWdsaWptMjVhMDg4dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l1J9JOEZqVI4JFEk0/giphy.gif")
+background-size: contain
+class: bottom, center
+
+
+
+<br>
+## .white[Deploy] 
+
+<div class="remark-footer"><a href="https://giphy.com/gifs/batman-robin-laundry-l1J9JOEZqVI4JFEk0" target="_blank" style="color: black;">Source: Threadless</a></div>
+
+---
+## 04: renv
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`</i> "The renv package helps you create reproducible environments for your R projects. Use renv to make your R projects more isolated, portable and reproducible" (Ushey and Wickham 2024).
+</div>
+
+.pull-left[
+
+- Isolated: Installing a new or updated package for one project won’t break your other projects, and vice versa.
+
+- Portable: Easily transport your projects from one computer to another, even across different platforms.
+
+- Reproducible: renv records the exact package versions you depend on, and ensures those exact versions are the ones that get installed." (Ushey and Wickham)
+
+]
+
+.pull-right[
+<figure>
+    <a href="https://rstudio.github.io/renv/index.html" target="_blank"><img src="https://rstudio.github.io/renv/logo.svg" alt="The renv package" width="65%"/>
+</figure>
+]
+
+
+---
+background-image: url(https://rstudio.github.io/renv/logo.svg)
+background-position: 90% 5%
+background-size: 8%
+
+## 04: renv
+
+.pull-left[
+
+- Use `renv::init()` to initiate a new project:
+  - Gives you the power of isolation because it creates a project library 
+  - Creates a .Rprofile file to load the renv library as long as renv is active
+  - The package creates a renv.lock with metadata about every project package so that it can be installed on a new machine
+
+- Use `renv::snapshot()` to create a snapshot of the project environment
+
+- Use `renv::restore()` to restore the project environment
+
+
+
+
+
+]
+
+.pull-right[
+
+<figure>
+    <a href="https://rstudio.github.io/renv/index.html" target="_blank"><img src="https://rstudio.github.io/renv/articles/renv.png" alt="www.edgar-treischl.de" width="95%"/>
+</figure>
+
+
+]
+
+
+---
+## 04: renv lockfile
+
+```shell
+  "R": {
+    "Version": "4.4.1",
+    "Repositories": [
+      {
+        "Name": "CRAN",
+        "URL": "https://cloud.r-project.org"
+      }
+    ]
+  },
+  "Packages": {
+    "markdown": {
+      "Package": "markdown",
+      "Version": "1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4584a57f565dd7987d59dda3a02cfb41"}
+    }
+```
+
+
+
+
+
+
+---
+## 04: Docker
+
+.pull-left[
+
+Create, deploy, and run applications in containers:
+
+- Container: A standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another.
+
+- Dockerfile: A text document that contains all the commands a user could call on the command line to assemble an image.
+
+- Rocker: A project that provides different Docker images for R. Those bundles include the OS, R, (RStudio), and packages.
+
+
+]
+
+.pull-right[
+
+<figure>
+    <a href="https://www.docker.com" target="_blank"><img src="images/docker.png" width="95%"/>
+</figure>
+
+]
+
+
+
+---
+background-image: url(https://rocker-project.org/img/rocker.png)
+background-position: 90% 5%
+background-size: 8%
+
+## 04: Docker and Rocker
+
+
+<div class="info-box"><i>`r emoji::emoji("parrot")`</i> The Rocker Project provides a collection of (Linux) containers suited for different needs. Find a base image to extend or images with popular software and optimized libraries pre-installed. (Rocker website) </div>
+
+
+
+```shell
+# Use a base R image from rocker project (official R Docker image)
+FROM rocker/r-ver:4.4.1
+
+# Set a working directory in the container
+WORKDIR /app
+
+# Copy a simple R script into the container
+COPY hello.R .
+
+# Install necessary R packages (e.g., ggplot2)
+RUN R -e "install.packages(c('ggplot2'), repos='https://cloud.r-project.org/')"
+
+# Set the entry point to run the R script
+ENTRYPOINT ["Rscript", "hello.R"]
+  
+```
+
+
+---
+## 04: sessioninfo
+
+```{r}
+mysession <- sessioninfo::session_info()
+mysession$platform
+```
+
+
+Set the parameter: `to_file = "session.log"`  to export a log file
+
+
+---
+## 04: sessioninfo
+
+
+
+```{r, eval = FALSE}
+sessioninfo::session_info(info = "external")
+```
+
+```bash
+═ Session info ═══════════════════════════════════════════════════════════════
+─ External software ──────────────────────────────────────────────────────────
+ setting        value
+ cairo          1.17.6
+ cairoFT
+ pango          1.50.14
+ png            1.6.40
+ jpeg           9.5
+ tiff           LIBTIFF, Version 4.5.0
+ tcl            8.6.13
+ curl           8.7.1
+ ...
+──────────────────────────────────────────────────────────────────────────────
+
+```
+
+
+
+
+
+
+
+
+---
+class: center, middle
+
+.left-column[
+
+## Keep in touch
+
+#### <a href="https://edgar-treischl.de" target="_blank"><img src="https://avatars.githubusercontent.com/u/77931249?s=400&u=eaf1d0871b643dd32cc0ff9f777edef28e6569a8&v=4" alt="www.edgar-treischl.de" width="25%"/><br/>www.edgar-treischl.de</a>
+<br/>
+
+#### <a href="https://github.com/edgar-treischl/Workshop_reproducibleR" target="_blank"><img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="https://github.com/edgar-treischl" width="30%"/><br/>edgar-treischl</a>
+
+
+]
+
+.right-column[
+
+
+## Thank you for your attention!
+<br/>
+
+<img src="https://i.gifer.com/D71m.gif" style="width: 40%"/>
+
+]
+
+
+
+
+
+
+
+---
+
+## References (1/2)
+
+
+```{r, print_refs, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
+
+print(bib[key = "covr"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "lintr"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "here"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "styler"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "renv"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+
+print(bib[key = "wickham_r_2015"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "testthat"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "usethis"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+```
+
+
+
+
+---
+
+## References (2/2)
+
+
+```{r, print_refs2, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
+
+print(bib[key = "sessioninfo"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "roxygen2"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "pkgdown"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "devtools"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "knitr"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
