@@ -1,5 +1,5 @@
 ---
-title: "Make it reproducibleR"
+title: "R Packages"
 date: "Last update: `r Sys.Date()`"
 output:
   xaringan::moon_reader:
@@ -96,7 +96,7 @@ meta() %>%
 
 
   
-# R Package Develop
+# R Package Development
 
 ## Work in Progess
 
@@ -183,6 +183,279 @@ You may copy, distribute, and use the slides in your own work, as long as you gi
 </figure>
 ]
 
+
+
+
+
+
+---
+
+## 01 Document: pkgdown
+
+.pull-left[
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`️</i> "The goal of pkgdown is to make it easy to make an elegant and useful package website with a minimum of work. You can get a basic website up and running in just a couple of minutes. If you’re using GitHub, we recommend setting up pkgdown and GitHub actions to automatically build and publish your site". (Wickham et al. 2024)
+</div>
+
+
+]
+
+.pull-right[
+<figure>
+    <a href="https://pkgdown.r-lib.org" target="_blank"><img src="https://pkgdown.r-lib.org/logo.png" alt="https://pkgdown.r-lib.org" width="50%" align="center"/>
+</figure>
+]
+
+<br>
+
+
+
+
+
+
+
+
+---
+background-image: url(https://pkgdown.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
+
+## 01 Document: pkgdown
+<br>
+<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:97%;">
+  <iframe src="https://pkgdown.r-lib.org" width="500" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
+</div>
+
+
+
+---
+background-image: url(https://pkgdown.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
+
+## 01 Document: pkgdown
+
+### Create a pkgdown website via:
+
+.pull-left[
+
+```{r, eval=FALSE}
+#usethis creates config file: => _pkgdown.yml config file
+usethis::use_pkgdown()
+
+#Build the website via:
+pkgdown::build_site()
+```
+
+### `r emoji::emoji("rocket")` via GitHub Actions:
+
+```{r, eval=FALSE}
+#Add corresponding GHA to deploy each time you push to GitHub
+usethis::use_pkgdown_github_pages()
+```
+
+
+
+
+]
+
+.pull-right[
+
+```yaml
+# _pkgdown.yml
+url: https://edgar-treischl.github.io/ProjectX/
+template:
+  bootstrap: 5
+  bootswatch: litera
+  bslib:
+    base_font: {google: "Solway"}
+    heading_font: {google: "Solway"}
+navbar:
+...
+```
+
+
+]
+
+
+---
+background-image: url("https://i.gifer.com/8Bx3.gif")
+background-size: cover
+class: bottom, center
+
+# .black[... Packages makes it easy to test our code `r emoji::emoji("silly")`] 
+
+
+<div class="remark-footer"><a href="https://gifer.com/de/8Bx3" target="_blank" style="color: black;">Source: Gifer</a></div>
+
+---
+background-image: url(https://testthat.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
+## 01: testthat
+
+<br/>
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`</i> "Testing your code can be painful and tedious, but it greatly increases the quality of your code. testthat tries to make testing as fun as possible, so that you get a visceral satisfaction from writing tests. Testing should be addictive, so you do it all the time. (Wickham 2011)"
+</div>
+
+<br/>
+
+.pull-left[
+
+```{r, eval =FALSE}
+#Set up the test infrastructure
+# And build a test
+usethis::use_test("name")
+```
+
+]
+
+.pull-right[
+
+<img src="images/testRStudio.png" style="width: 90%"/>
+
+]
+
+
+---
+background-image: url(https://covr.r-lib.org/reference/figures/logo.png)
+background-position: 90% 5%
+background-size: 8%
+## 01: covr
+
+
+.panelset[
+
+.panel[.panel-name[Test Coverage]
+
+.pull-left[
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`️</i>"Track test coverage for your R package and view reports locally or (optionally) upload the results to codecov or coveralls. (Hester 2023)"
+</div>
+
+```{r, eval =FALSE}
+# Inspect the test coverage
+covr::report()
+```
+
+
+]
+.pull-right[
+
+<img src="images/covr1.png" style="width: 90%"/>
+
+]
+
+
+]
+
+
+.panel[.panel-name[Tracked Source]
+ <img src="images/covr.png" style="width: 90%"/>
+]
+
+]
+
+
+---
+background-image: url(https://styler.r-lib.org/reference/figures/logo.png)
+background-position: 90% 5%
+background-size: 8%
+
+## 01: Develop With Style(r)
+
+
+.pull-left[
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`️️</i> "styler formats your code according to the tidyverse style guide (https://style.tidyverse.org) (or your custom style guide) so you can direct your attention to the content of your code" (Müller and Walthert 2024).
+</div>
+
+
+]
+
+.pull-right[
+
+```{r}
+styler::style_text(
+  "myFunction<-function( x,y){
+  if(sum( x , y )==10){
+    print( 'Sum is correct!' )
+  }
+}"
+)
+
+```
+
+]
+
+
+There a goodies if you develop an R package:
+
+```{r, eval=FALSE}
+styler::style_pkg()
+```
+
+
+---
+background-image: url(https://github.com/r-lib/lintr/blob/main/man/figures/logo.png?raw=true)
+background-position: 90% 5%
+background-size: 8%
+
+
+## 01: Lint
+
+
+
+.pull-left[
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`️</i>"lintr provides static code analysis for R. It checks for adherence to a given style, identifying syntax errors and possible semantic issues, then reports them to you so you can take action" (Hester et al. 2024).
+</div>
+
+
+]
+
+.pull-right[
+
+```{r}
+lintr::lint(text = 'myFunction <- function(x, y) {
+  if (sum(x, y) == 10) {
+    print("Sum is correct!")
+  }
+}')
+```
+
+]
+
+
+
+There are even more goodies `r emoji::emoji("bad")` if you develop an R package:
+
+```{r, eval=FALSE}
+#lintr::lint_dir(path = "R")
+lintr::lint_package()
+```
+
+
+---
+background-image: url(https://i.gifer.com/8rTu.gif)
+background-size: cover
+class: bottom, center
+
+
+
+
+## .white[Let's get started ... `r emoji::emoji("evil")`] 
+
+<div class="remark-footer"><a href="https://gifer.com/de/8rTu" target="_blank" style="color: black;">Source: Mark Hamill</a></div>
+
+
+
 ---
 ## 02: devtools does the heavy lifting `r emoji::emoji("weight")`
 
@@ -230,18 +503,78 @@ You may copy, distribute, and use the slides in your own work, as long as you gi
 ]
 
 
+---
+background-image: url(https://usethis.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
+## 02: usethis and Github Actions
+
+.pull-left[
+
+Continuous Integration/Continuous Deployment:
+
+1. *Reliability via Automated Testing*: We can automatically run tests on every commit, ensuring that code changes don't break functionality.
+
+2. *Consistent Environments*: CI/CD pipelines define reproducible environments, ensuring that the code runs the same way on every machine, regardless the local setup.
+
+3. *Effortless Deployment*: With GitHub Actions, you can automate the deployment of R Markdown reports, Shiny apps, R packages, and so on.
+
+]
+
+.pull-right[
+
+```yaml
+# Workflow from: https://github.com/r-lib/actions/tree/v2/examples
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+name: R-CMD-check
+
+jobs:
+  R-CMD-check:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+    steps:
+      - uses: actions/checkout@v3
+
+...
+```
+
+]
+
 
 ---
-background-image: url(https://i.gifer.com/8rTu.gif)
-background-size: cover
-class: bottom, center
+background-image: url(https://usethis.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
+
+## 02: usethis and Github Actions
+
+
+
+Usethis has predefined workflows for:
+
+```{r, eval = FALSE}
+usethis::use_github_action()
+
+# Which action do you want to add? (0 to exit)
+# (See <https://github.com/r-lib/actions/tree/v2/examples> for other options) 
+# 
+# 1: check-standard: Run `R CMD check` on Linux, macOS, and Windows
+# 2: test-coverage: Compute test coverage and report to https://about.codecov.io
+# 3: pr-commands: Add /document and /style commands for pull requests
+```
 
 
 
 
-## .white[Let's get started ... `r emoji::emoji("evil")`] 
 
-<div class="remark-footer"><a href="https://gifer.com/de/8rTu" target="_blank" style="color: black;">Source: Mark Hamill</a></div>
 
 
 
@@ -289,258 +622,181 @@ LazyData: true
 
 
 
-
-
-
-
-
-
-
-
 ---
-background-image: url(https://styler.r-lib.org/reference/figures/logo.png)
-background-position: 90% 5%
-background-size: 8%
 
-## 01: Develop With Style(r)
-
+## 02: Steps to create a package II
 
 .pull-left[
 
-<div class="info-box">
-  <i>`r emoji::emoji("parrot")`️️</i> "styler formats your code according to the tidyverse style guide (https://style.tidyverse.org) (or your custom style guide) so you can direct your attention to the content of your code" (Müller and Walthert 2024).
-</div>
+The function sets up the following components:
+
+- DESCRIPTION File: A “package manifest” used by R and CRAN.
+
+- R Folder: For all R Files.
+
+- man folder: Contains automatically generated .Rd documentation files, created by roxygen2. 
+
+- NAMESPACE: Lists functions which are exposed to users (exported) and which are internal. Automatically generated by roxygen2 (e.g., @export).
+
+.Rbuildignore File: All files and folders that will be ignored when building the package.
+
 
 
 ]
 
 .pull-right[
 
-```{r}
-styler::style_text(
-  "myFunction<-function( x,y){
-  if(sum( x , y )==10){
-    print( 'Sum is correct!' )
-  }
-}"
-)
+```{bash
+Package: TestPackage
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Jane", "Doe",
+      email = "jane@example.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: More about what it does (maybe more than one line).
+    Continuation lines should be indented.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
 
 ```
+
 
 ]
-
-
-There a goodies if you develop an R package:
-
-```{r, eval=FALSE}
-styler::style_pkg()
-```
-
-
-
-
 
 
 
 ---
-background-image: url(https://github.com/r-lib/lintr/blob/main/man/figures/logo.png?raw=true)
-background-position: 90% 5%
-background-size: 8%
 
-
-## 01: Lintr
-
-
+## 02: R Folder: Hello.R
 
 .pull-left[
 
-<div class="info-box">
-  <i>`r emoji::emoji("parrot")`️</i>"lintr provides static code analysis for R. It checks for adherence to a given style, identifying syntax errors and possible semantic issues, then reports them to you so you can take action" (Hester et al. 2024).
-</div>
+`R/Hello.R` example
 
-
-]
-
-.pull-right[
-
-```{r}
-lintr::lint(text = 'myFunction <- function(x, y) {
-  if (sum(x, y) == 10) {
-    print("Sum is correct!")
-  }
-}')
-```
-
-]
-
-
-
-There are even more goodies `r emoji::emoji("bad")` if you develop an R package:
-
-```{r, eval=FALSE}
-#lintr::lint_dir(path = "R")
-lintr::lint_package()
-```
-
-
-
-
-
-
-
-
-
----
-background-image: url(https://usethis.r-lib.org/logo.png)
-background-position: 90% 5%
-background-size: 8%
-## 02: Github Actions
-
-.pull-left[
-
-Continuous Integration/Continuous Deployment:
-
-1. *Reliability via Automated Testing*: We can automatically run tests on every commit, ensuring that code changes don't break functionality.
-
-2. *Consistent Environments*: CI/CD pipelines define reproducible environments, ensuring that the code runs the same way on every machine, regardless the local setup.
-
-3. *Effortless Deployment*: With GitHub Actions, you can automate the deployment of R Markdown reports, Shiny apps, R packages, and so on.
-
-]
-
-.pull-right[
-
-```yaml
-# Workflow from: https://github.com/r-lib/actions/tree/v2/examples
-
-on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
-
-name: R-CMD-check
-
-jobs:
-  R-CMD-check:
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      R_KEEP_PKG_SOURCE: yes
-    steps:
-      - uses: actions/checkout@v3
-
+```{r
+# Hello, world!
 ...
-```
+#
+# Some useful keyboard shortcuts for package authoring:
+#
+#   Install Package:           'Cmd + Shift + B'
+#   Check Package:             'Cmd + Shift + E'
+#   Test Package:              'Cmd + Shift + T'
 
-]
+hello <- function() {
+  print("Hello, world!")
+}
 
-
----
-background-image: url(https://usethis.r-lib.org/logo.png)
-background-position: 90% 5%
-background-size: 8%
-
-## 02: Github Actions and usethis
-
-
-
-Usethis has predefined workflows for:
-
-```{r, eval = FALSE}
-usethis::use_github_action()
-
-# Which action do you want to add? (0 to exit)
-# (See <https://github.com/r-lib/actions/tree/v2/examples> for other options) 
-# 
-# 1: check-standard: Run `R CMD check` on Linux, macOS, and Windows
-# 2: test-coverage: Compute test coverage and report to https://about.codecov.io
-# 3: pr-commands: Add /document and /style commands for pull requests
 ```
 
 
----
-background-image: url("https://i.gifer.com/8Bx3.gif")
-background-size: cover
-class: bottom, center
-
-# .black[... but don't forget to test `r emoji::emoji("silly")`] 
-
-
-<div class="remark-footer"><a href="https://gifer.com/de/8Bx3" target="_blank" style="color: black;">Source: Gifer</a></div>
-
----
-background-image: url(https://testthat.r-lib.org/logo.png)
-background-position: 90% 5%
-background-size: 8%
-## 02: testthat
-
-<br/>
-
-<div class="info-box">
-  <i>`r emoji::emoji("parrot")`</i> "Testing your code can be painful and tedious, but it greatly increases the quality of your code. testthat tries to make testing as fun as possible, so that you get a visceral satisfaction from writing tests. Testing should be addictive, so you do it all the time. (Wickham 2011)"
-</div>
-
-<br/>
-
-.pull-left[
-
-```{r, eval =FALSE}
-#Set up the test infrastructure
-# And build a test
-usethis::use_test("name")
-```
 
 ]
 
 .pull-right[
 
-<img src="images/testRStudio.png" style="width: 90%"/>
+#### Install via:
+
+```r
+# Install the package
+devtools::install()
+```
+
+#### Test via:
+
+```r
+# Load the package
+library(playertest)
+
+# Call the hello function
+hello()
+
+#> [1] "Hello, world!"
+```
+
+
+]
+
+
+
+---
+
+## 03: Develop
+
+
+.pull-left[
+
+#### Load it all
+
+- ´load_all()´ parses all R files located in the R/ directory: This means devtools reads the R scripts in that folder, processes the code, and converts it into internal R objects that can be used immediately in your session.
+
+- It loads all exported functions into your session (@export).
+
+- It compiles documentation if you’re using roxygen2
+
+=> This acts like hot-reloading for R development, it instantly reloads your package code into your session without needing a reinstall.
+
+]
+
+.pull-right[
+
+
+<figure>
+    <a href="https://devtools.r-lib.org" target="_blank"><img src="images/devtools.png" alt="www.edgar-treischl.de" width="95%" align="right"/>
+</figure>
+
 
 ]
 
 
 ---
-background-image: url(https://covr.r-lib.org/reference/figures/logo.png)
-background-position: 90% 5%
-background-size: 8%
-## 02: covr
 
+## 03: Develop II
 
-.panelset[
-
-.panel[.panel-name[Test Coverage]
 
 .pull-left[
 
-<div class="info-box">
-  <i>`r emoji::emoji("parrot")`️</i>"Track test coverage for your R package and view reports locally or (optionally) upload the results to codecov or coveralls. (Hester 2023)"
-</div>
+#### Load it all
 
-```{r, eval =FALSE}
-# Inspect the test coverage
-covr::report()
+- Let’s add a small feature to the package, document it, and install the package again.
+
+- For example, let's use the `praise` package to add a personalized compliment.
+
+=> Save the file, run `load_all()` and test the new `hello()` function with a name to see the enhanced greeting:
+
+]
+
+.pull-right[
+
+
+```{r}
+# Add a new feature
+hello <- function(name) {
+  print(paste0("Hello ", name, praise::praise(template = ", you are ${adjective}!") ))
+}
+
+# Load the updated package
+hello("Stefan")
 ```
 
 
-]
-.pull-right[
-
-<img src="images/covr1.png" style="width: 90%"/>
 
 ]
 
+```
+# Add a package to the DESCRIPTION
+usethis::use_package("praise")
 
-]
-
-
-.panel[.panel-name[Tracked Source]
- <img src="images/covr.png" style="width: 90%"/>
-]
-
-]
-
-
+# ✔ Setting active project to "/Users/edgar/Develop/playertest".
+# ✔ Adding praise to Imports field in DESCRIPTION.
+# ☐ Refer to functions with `praise::fun()`.
+```
 
 
 
@@ -602,75 +858,73 @@ add <- function(x, y) {
 ]
 
 
-
-
-
 ---
 
-## 03 Document: pkgdown
+## 03 Document: roxygen2
 
 .pull-left[
 
-<div class="info-box">
-  <i>`r emoji::emoji("parrot")`️</i> "The goal of pkgdown is to make it easy to make an elegant and useful package website with a minimum of work. You can get a basic website up and running in just a couple of minutes. If you’re using GitHub, we recommend setting up pkgdown and GitHub actions to automatically build and publish your site". (Wickham et al. 2024)
-</div>
+- let us add code documentation to the `hello()` function with roxygen2
+
+```R
+#' Say hello to Someone
+#'
+#' @param name A character string with the name of the person to greet
+#' @return A greeting message printed to the console
+#' @export
+#'
+hello <- function(name) {
+  print(paste0("Hello ", name, praise::praise(template = ", you are ${adjective}!")))
+}
+```
+
+- Next, run devtools::document() to generate the documentation files based on your roxygen2 comments. 
 
 
 ]
 
 .pull-right[
-<figure>
-    <a href="https://pkgdown.r-lib.org" target="_blank"><img src="https://pkgdown.r-lib.org/logo.png" alt="https://pkgdown.r-lib.org" width="50%" align="center"/>
-</figure>
+
+
+- This will create or update the .Rd files in the man/ directory, which are used by R to provide help pages for your functions.
+
+```r
+# Update the documentation
+devtools::document()
+
+# ℹ Updating playertest documentation
+# First time using roxygen2. Upgrading automatically...
+# Setting `RoxygenNote` to "7.3.2"
+# ℹ Loading playertest
+# ✖ Skipping NAMESPACE
+# ℹ It already exists and was not generated by roxygen2.
+# ✖ Skipping hello.Rd
+# ℹ It already exists and was not generated by roxygen2.
+```
+
+
+
+
 ]
 
-<br>
-
-
-
 
 
 
 
 
 ---
-background-image: url(https://pkgdown.r-lib.org/logo.png)
-background-position: 90% 5%
-background-size: 8%
 
-## 03 Document: pkgdown
-<br>
-<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:97%;">
-  <iframe src="https://pkgdown.r-lib.org" width="500" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
-</div>
-
-
-
----
-background-image: url(https://pkgdown.r-lib.org/logo.png)
-background-position: 90% 5%
-background-size: 8%
-
-## 03 Document: pkgdown
-
-### Create a pkgdown website via:
+## devtools::check()
 
 .pull-left[
 
-```{r, eval=FALSE}
-#usethis creates config file: => _pkgdown.yml config file
-usethis::use_pkgdown()
-
-#Build the website via:
-pkgdown::build_site()
-```
-
-### `r emoji::emoji("rocket")` via GitHub Actions:
-
-```{r, eval=FALSE}
-#Add corresponding GHA to deploy each time you push to GitHub
-usethis::use_pkgdown_github_pages()
-```
+- It verifies that all functions are properly documented, using both roxygen2 annotations and the contents of the man/ directory.
+- It ensures that the namespace is consistent and that all exported/imported functions are correctly declared.
+- It checks that the overall package structure follows best practices and conforms to R package standards.
+- It runs any unit tests to ensure that the code behaves as expected.
+- It flags any code issues, such as formatting problems, warnings, or potential errors.
+- It checks for proper handling and declaration of package dependencies.
+- If your package includes vignettes, it attempts to build and render them to confirm that they compile successfully.
 
 
 
@@ -680,20 +934,67 @@ usethis::use_pkgdown_github_pages()
 .pull-right[
 
 ```yaml
-# _pkgdown.yml
-url: https://edgar-treischl.github.io/ProjectX/
-template:
-  bootstrap: 5
-  bootswatch: litera
-  bslib:
-    base_font: {google: "Solway"}
-    heading_font: {google: "Solway"}
-navbar:
-...
+── R CMD check results ──────────────── playertest2 0.1.0 ────
+Duration: 5.3s
+
+❯ checking DESCRIPTION meta-information ... WARNING
+  Non-standard license specification:
+    What license is it under?
+  Standardizable: FALSE
+
+❯ checking for future file timestamps ... NOTE
+  unable to verify current time
+
+0 errors ✔ | 1 warning ✖ | 1 note ✖
+Error: R CMD check found WARNINGs
+Execution halted
+
+Exited with status 1.
 ```
 
 
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+### Old Slides
+
+
+
+
 
 
 

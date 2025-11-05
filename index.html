@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Make it reproducibleR</title>
+    <title>R Packages</title>
     <meta charset="utf-8" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <script src="libs/mark.js/mark.min.js"></script>
@@ -82,7 +82,7 @@ class: center, middle
 
 
   
-# R Package Develop
+# R Package Development
 
 ## Work in Progess
 
@@ -90,7 +90,7 @@ class: center, middle
 &lt;a href="http://www.edgar-treischl.de" target="_blank"&gt;www.edgar-treischl.de&lt;/a&gt;
 &lt;br/&gt;
 &lt;br/&gt;
-.large[Last update: 2025-08-25]
+.large[Last update: 2025-11-05]
 &lt;br/&gt;
 &lt;br/&gt;
 This presentation is licensed under a CC-BY-NC 4.0 license.
@@ -128,8 +128,8 @@ You may copy, distribute, and use the slides in your own work, as long as you gi
 
 ### 01 Develop 💭
 ### 02 Build 🚧
-### 03 Document 📝
-### 04 Deploy 🏃‍♀️‍➡️
+### 03 Document 📜
+### 04 Deploy 🏃
 
 
 
@@ -151,7 +151,7 @@ You may copy, distribute, and use the slides in your own work, as long as you gi
 ---
 ## 01: Why R Packages?
 
-### I will not create something like ggplot2, so why should I create a package anyway? 🫨 
+### I will not create something like ggplot2, so why should I create a package anyway? 🤪 
 
 .pull-left[
 
@@ -169,41 +169,19 @@ You may copy, distribute, and use the slides in your own work, as long as you gi
 &lt;/figure&gt;
 ]
 
----
-## 02: devtools does the heavy lifting 🏋️‍♂️
-
-&lt;div class="info-box"&gt;
-  &lt;i&gt;🦜&lt;/i&gt; "The aim of devtools is to make package development easier by providing R functions that simplify and expedite common tasks. R Packages is a book based around this workflow." (Wickham et al. 2022)
-&lt;/div&gt;
 
 
-.pull-left[
-
-
-
-&lt;figure&gt;
-    &lt;a href="https://devtools.r-lib.org" target="_blank"&gt;&lt;img src="images/devtools.png" alt="www.edgar-treischl.de" width="65%" align="right"/&gt;
-&lt;/figure&gt;
-
-]
-
-.pull-right[
-&lt;figure&gt;
-    &lt;a href="https://devtools.r-lib.org" target="_blank"&gt;&lt;img src="https://devtools.r-lib.org/logo.svg" alt="www.edgar-treischl.de" width="55%" align="center"/&gt;
-&lt;/figure&gt;
-]
 
 
 
 ---
-## 02: usethis
 
-
+## 01 Document: pkgdown
 
 .pull-left[
 
 &lt;div class="info-box"&gt;
-  &lt;i&gt;🦜&lt;/i&gt; "usethis is a workflow package: it automates repetitive tasks that arise during project setup and development, both for R packages and non-package projects." (Wickham et al. 2022)
+  &lt;i&gt;🦜️&lt;/i&gt; "The goal of pkgdown is to make it easy to make an elegant and useful package website with a minimum of work. You can get a basic website up and running in just a couple of minutes. If you’re using GitHub, we recommend setting up pkgdown and GitHub actions to automatically build and publish your site". (Wickham et al. 2024)
 &lt;/div&gt;
 
 
@@ -211,77 +189,166 @@ You may copy, distribute, and use the slides in your own work, as long as you gi
 
 .pull-right[
 &lt;figure&gt;
-    &lt;a href="https://usethis.r-lib.org/" target="_blank"&gt;&lt;img src="https://usethis.r-lib.org/logo.png" alt="www.edgar-treischl.de" width="55%" align="center"/&gt;
+    &lt;a href="https://pkgdown.r-lib.org" target="_blank"&gt;&lt;img src="https://pkgdown.r-lib.org/logo.png" alt="https://pkgdown.r-lib.org" width="50%" align="center"/&gt;
 &lt;/figure&gt;
 ]
 
-
-
----
-background-image: url(https://i.gifer.com/8rTu.gif)
-background-size: cover
-class: bottom, center
+&lt;br&gt;
 
 
 
 
-## .white[Let's get started ... 👿] 
 
-&lt;div class="remark-footer"&gt;&lt;a href="https://gifer.com/de/8rTu" target="_blank" style="color: black;"&gt;Source: Mark Hamill&lt;/a&gt;&lt;/div&gt;
 
 
 
 ---
+background-image: url(https://pkgdown.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
 
-## 02: Steps to create a package
+## 01 Document: pkgdown
+&lt;br&gt;
+&lt;div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:97%;"&gt;
+  &lt;iframe src="https://pkgdown.r-lib.org" width="500" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+
+
+---
+background-image: url(https://pkgdown.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
+
+## 01 Document: pkgdown
+
+### Create a pkgdown website via:
 
 .pull-left[
-
-1. Create a new repository on GitHub/GitLab and clone it
-2. Create a package a package via: 
 
 
 ``` r
-# create_package adds ...
-usethis::create_package(here::here())
+#usethis creates config file: =&gt; _pkgdown.yml config file
+usethis::use_pkgdown()
+
+#Build the website via:
+pkgdown::build_site()
 ```
+
+### 🚀 via GitHub Actions:
+
+
+``` r
+#Add corresponding GHA to deploy each time you push to GitHub
+usethis::use_pkgdown_github_pages()
+```
+
+
 
 
 ]
 
 .pull-right[
 
-```{bash
-Package: TestPackage
-Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
-Encoding: UTF-8
-LazyData: true
-
+```yaml
+# _pkgdown.yml
+url: https://edgar-treischl.github.io/ProjectX/
+template:
+  bootstrap: 5
+  bootswatch: litera
+  bslib:
+    base_font: {google: "Solway"}
+    heading_font: {google: "Solway"}
+navbar:
+...
 ```
 
 
 ]
 
 
+---
+background-image: url("https://i.gifer.com/8Bx3.gif")
+background-size: cover
+class: bottom, center
+
+# .black[... Packages makes it easy to test our code 😜] 
 
 
+&lt;div class="remark-footer"&gt;&lt;a href="https://gifer.com/de/8Bx3" target="_blank" style="color: black;"&gt;Source: Gifer&lt;/a&gt;&lt;/div&gt;
+
+---
+background-image: url(https://testthat.r-lib.org/logo.png)
+background-position: 90% 5%
+background-size: 8%
+## 01: testthat
+
+&lt;br/&gt;
+
+&lt;div class="info-box"&gt;
+  &lt;i&gt;🦜&lt;/i&gt; "Testing your code can be painful and tedious, but it greatly increases the quality of your code. testthat tries to make testing as fun as possible, so that you get a visceral satisfaction from writing tests. Testing should be addictive, so you do it all the time. (Wickham 2011)"
+&lt;/div&gt;
+
+&lt;br/&gt;
+
+.pull-left[
 
 
+``` r
+#Set up the test infrastructure
+# And build a test
+usethis::use_test("name")
+```
+
+]
+
+.pull-right[
+
+&lt;img src="images/testRStudio.png" style="width: 90%"/&gt;
+
+]
 
 
+---
+background-image: url(https://covr.r-lib.org/reference/figures/logo.png)
+background-position: 90% 5%
+background-size: 8%
+## 01: covr
 
+
+.panelset[
+
+.panel[.panel-name[Test Coverage]
+
+.pull-left[
+
+&lt;div class="info-box"&gt;
+  &lt;i&gt;🦜️&lt;/i&gt;"Track test coverage for your R package and view reports locally or (optionally) upload the results to codecov or coveralls. (Hester 2023)"
+&lt;/div&gt;
+
+
+``` r
+# Inspect the test coverage
+covr::report()
+```
+
+
+]
+.pull-right[
+
+&lt;img src="images/covr1.png" style="width: 90%"/&gt;
+
+]
+
+
+]
+
+
+.panel[.panel-name[Tracked Source]
+ &lt;img src="images/covr.png" style="width: 90%"/&gt;
+]
+
+]
 
 
 ---
@@ -333,18 +400,13 @@ styler::style_pkg()
 ```
 
 
-
-
-
-
-
 ---
 background-image: url(https://github.com/r-lib/lintr/blob/main/man/figures/logo.png?raw=true)
 background-position: 90% 5%
 background-size: 8%
 
 
-## 01: Lintr
+## 01: Lint
 
 
 
@@ -378,7 +440,7 @@ lintr::lint(text = 'myFunction &lt;- function(x, y) {
 
 
 
-There are even more goodies 🦹‍♀️ if you develop an R package:
+There are even more goodies 👎 if you develop an R package:
 
 
 ``` r
@@ -387,18 +449,72 @@ lintr::lint_package()
 ```
 
 
+---
+background-image: url(https://i.gifer.com/8rTu.gif)
+background-size: cover
+class: bottom, center
 
 
 
 
+## .white[Let's get started ... 🦹‍♀️] 
 
+&lt;div class="remark-footer"&gt;&lt;a href="https://gifer.com/de/8rTu" target="_blank" style="color: black;"&gt;Source: Mark Hamill&lt;/a&gt;&lt;/div&gt;
+
+
+
+---
+## 02: devtools does the heavy lifting 🏋️‍♂️
+
+&lt;div class="info-box"&gt;
+  &lt;i&gt;🦜&lt;/i&gt; "The aim of devtools is to make package development easier by providing R functions that simplify and expedite common tasks. R Packages is a book based around this workflow." (Wickham et al. 2022)
+&lt;/div&gt;
+
+
+.pull-left[
+
+
+
+&lt;figure&gt;
+    &lt;a href="https://devtools.r-lib.org" target="_blank"&gt;&lt;img src="images/devtools.png" alt="www.edgar-treischl.de" width="65%" align="right"/&gt;
+&lt;/figure&gt;
+
+]
+
+.pull-right[
+&lt;figure&gt;
+    &lt;a href="https://devtools.r-lib.org" target="_blank"&gt;&lt;img src="https://devtools.r-lib.org/logo.svg" alt="www.edgar-treischl.de" width="55%" align="center"/&gt;
+&lt;/figure&gt;
+]
+
+
+
+---
+## 02: usethis
+
+
+
+.pull-left[
+
+&lt;div class="info-box"&gt;
+  &lt;i&gt;🦜&lt;/i&gt; "usethis is a workflow package: it automates repetitive tasks that arise during project setup and development, both for R packages and non-package projects." (Wickham et al. 2022)
+&lt;/div&gt;
+
+
+]
+
+.pull-right[
+&lt;figure&gt;
+    &lt;a href="https://usethis.r-lib.org/" target="_blank"&gt;&lt;img src="https://usethis.r-lib.org/logo.png" alt="www.edgar-treischl.de" width="55%" align="center"/&gt;
+&lt;/figure&gt;
+]
 
 
 ---
 background-image: url(https://usethis.r-lib.org/logo.png)
 background-position: 90% 5%
 background-size: 8%
-## 02: Github Actions
+## 02: usethis and Github Actions
 
 .pull-left[
 
@@ -445,7 +561,7 @@ background-image: url(https://usethis.r-lib.org/logo.png)
 background-position: 90% 5%
 background-size: 8%
 
-## 02: Github Actions and usethis
+## 02: usethis and Github Actions
 
 
 
@@ -464,90 +580,237 @@ usethis::use_github_action()
 ```
 
 
----
-background-image: url("https://i.gifer.com/8Bx3.gif")
-background-size: cover
-class: bottom, center
-
-# .black[... but don't forget to test 😜] 
 
 
-&lt;div class="remark-footer"&gt;&lt;a href="https://gifer.com/de/8Bx3" target="_blank" style="color: black;"&gt;Source: Gifer&lt;/a&gt;&lt;/div&gt;
+
+
+
 
 ---
-background-image: url(https://testthat.r-lib.org/logo.png)
-background-position: 90% 5%
-background-size: 8%
-## 02: testthat
 
-&lt;br/&gt;
-
-&lt;div class="info-box"&gt;
-  &lt;i&gt;🦜&lt;/i&gt; "Testing your code can be painful and tedious, but it greatly increases the quality of your code. testthat tries to make testing as fun as possible, so that you get a visceral satisfaction from writing tests. Testing should be addictive, so you do it all the time. (Wickham 2011)"
-&lt;/div&gt;
-
-&lt;br/&gt;
+## 02: Steps to create a package
 
 .pull-left[
 
+1. Create a new repository on GitHub/GitLab and clone it
+2. Create a package a package via: 
+
 
 ``` r
-#Set up the test infrastructure
-# And build a test
-usethis::use_test("name")
+# create_package adds ...
+usethis::create_package(here::here())
 ```
+
 
 ]
 
 .pull-right[
 
-&lt;img src="images/testRStudio.png" style="width: 90%"/&gt;
+```{bash
+Package: TestPackage
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Jane", "Doe",
+      email = "jane@example.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: More about what it does (maybe more than one line).
+    Continuation lines should be indented.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+
+```
+
+
+]
+
+
+
+---
+
+## 02: Steps to create a package II
+
+.pull-left[
+
+The function sets up the following components:
+
+- DESCRIPTION File: A “package manifest” used by R and CRAN.
+
+- R Folder: For all R Files.
+
+- man folder: Contains automatically generated .Rd documentation files, created by roxygen2. 
+
+- NAMESPACE: Lists functions which are exposed to users (exported) and which are internal. Automatically generated by roxygen2 (e.g., @export).
+
+.Rbuildignore File: All files and folders that will be ignored when building the package.
+
+
+
+]
+
+.pull-right[
+
+```{bash
+Package: TestPackage
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Jane", "Doe",
+      email = "jane@example.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: More about what it does (maybe more than one line).
+    Continuation lines should be indented.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+
+```
+
+
+]
+
+
+
+---
+
+## 02: R Folder: Hello.R
+
+.pull-left[
+
+`R/Hello.R` example
+
+```{r
+# Hello, world!
+...
+#
+# Some useful keyboard shortcuts for package authoring:
+#
+#   Install Package:           'Cmd + Shift + B'
+#   Check Package:             'Cmd + Shift + E'
+#   Test Package:              'Cmd + Shift + T'
+
+hello &lt;- function() {
+  print("Hello, world!")
+}
+
+```
+
+
+
+]
+
+.pull-right[
+
+#### Install via:
+
+```r
+# Install the package
+devtools::install()
+```
+
+#### Test via:
+
+```r
+# Load the package
+library(playertest)
+
+# Call the hello function
+hello()
+
+#&gt; [1] "Hello, world!"
+```
+
+
+]
+
+
+
+---
+
+## 03: Develop
+
+
+.pull-left[
+
+#### Load it all
+
+- ´load_all()´ parses all R files located in the R/ directory: This means devtools reads the R scripts in that folder, processes the code, and converts it into internal R objects that can be used immediately in your session.
+
+- It loads all exported functions into your session (@export).
+
+- It compiles documentation if you’re using roxygen2
+
+=&gt; This acts like hot-reloading for R development, it instantly reloads your package code into your session without needing a reinstall.
+
+]
+
+.pull-right[
+
+
+&lt;figure&gt;
+    &lt;a href="https://devtools.r-lib.org" target="_blank"&gt;&lt;img src="images/devtools.png" alt="www.edgar-treischl.de" width="95%" align="right"/&gt;
+&lt;/figure&gt;
+
 
 ]
 
 
 ---
-background-image: url(https://covr.r-lib.org/reference/figures/logo.png)
-background-position: 90% 5%
-background-size: 8%
-## 02: covr
 
+## 03: Develop II
 
-.panelset[
-
-.panel[.panel-name[Test Coverage]
 
 .pull-left[
 
-&lt;div class="info-box"&gt;
-  &lt;i&gt;🦜️&lt;/i&gt;"Track test coverage for your R package and view reports locally or (optionally) upload the results to codecov or coveralls. (Hester 2023)"
-&lt;/div&gt;
+#### Load it all
+
+- Let’s add a small feature to the package, document it, and install the package again.
+
+- For example, let's use the `praise` package to add a personalized compliment.
+
+=&gt; Save the file, run `load_all()` and test the new `hello()` function with a name to see the enhanced greeting:
+
+]
+
+.pull-right[
+
 
 
 ``` r
-# Inspect the test coverage
-covr::report()
+# Add a new feature
+hello &lt;- function(name) {
+  print(paste0("Hello ", name, praise::praise(template = ", you are ${adjective}!") ))
+}
+
+# Load the updated package
+hello("Stefan")
+```
+
+```
+## [1] "Hello Stefan, you are solid!"
 ```
 
 
-]
-.pull-right[
-
-&lt;img src="images/covr1.png" style="width: 90%"/&gt;
 
 ]
 
+```
+# Add a package to the DESCRIPTION
+usethis::use_package("praise")
 
-]
-
-
-.panel[.panel-name[Tracked Source]
- &lt;img src="images/covr.png" style="width: 90%"/&gt;
-]
-
-]
-
-
+# ✔ Setting active project to "/Users/edgar/Develop/playertest".
+# ✔ Adding praise to Imports field in DESCRIPTION.
+# ☐ Refer to functions with `praise::fun()`.
+```
 
 
 
@@ -610,77 +873,73 @@ add &lt;- function(x, y) {
 ]
 
 
-
-
-
 ---
 
-## 03 Document: pkgdown
+## 03 Document: roxygen2
 
 .pull-left[
 
-&lt;div class="info-box"&gt;
-  &lt;i&gt;🦜️&lt;/i&gt; "The goal of pkgdown is to make it easy to make an elegant and useful package website with a minimum of work. You can get a basic website up and running in just a couple of minutes. If you’re using GitHub, we recommend setting up pkgdown and GitHub actions to automatically build and publish your site". (Wickham et al. 2024)
-&lt;/div&gt;
+- let us add code documentation to the `hello()` function with roxygen2
+
+```R
+#' Say hello to Someone
+#'
+#' @param name A character string with the name of the person to greet
+#' @return A greeting message printed to the console
+#' @export
+#'
+hello &lt;- function(name) {
+  print(paste0("Hello ", name, praise::praise(template = ", you are ${adjective}!")))
+}
+```
+
+- Next, run devtools::document() to generate the documentation files based on your roxygen2 comments. 
 
 
 ]
 
 .pull-right[
-&lt;figure&gt;
-    &lt;a href="https://pkgdown.r-lib.org" target="_blank"&gt;&lt;img src="https://pkgdown.r-lib.org/logo.png" alt="https://pkgdown.r-lib.org" width="50%" align="center"/&gt;
-&lt;/figure&gt;
+
+
+- This will create or update the .Rd files in the man/ directory, which are used by R to provide help pages for your functions.
+
+```r
+# Update the documentation
+devtools::document()
+
+# ℹ Updating playertest documentation
+# First time using roxygen2. Upgrading automatically...
+# Setting `RoxygenNote` to "7.3.2"
+# ℹ Loading playertest
+# ✖ Skipping NAMESPACE
+# ℹ It already exists and was not generated by roxygen2.
+# ✖ Skipping hello.Rd
+# ℹ It already exists and was not generated by roxygen2.
+```
+
+
+
+
 ]
 
-&lt;br&gt;
-
-
-
 
 
 
 
 
 ---
-background-image: url(https://pkgdown.r-lib.org/logo.png)
-background-position: 90% 5%
-background-size: 8%
 
-## 03 Document: pkgdown
-&lt;br&gt;
-&lt;div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:97%;"&gt;
-  &lt;iframe src="https://pkgdown.r-lib.org" width="500" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-
-
----
-background-image: url(https://pkgdown.r-lib.org/logo.png)
-background-position: 90% 5%
-background-size: 8%
-
-## 03 Document: pkgdown
-
-### Create a pkgdown website via:
+## devtools::check()
 
 .pull-left[
 
-
-``` r
-#usethis creates config file: =&gt; _pkgdown.yml config file
-usethis::use_pkgdown()
-
-#Build the website via:
-pkgdown::build_site()
-```
-
-### 🚀 via GitHub Actions:
-
-
-``` r
-#Add corresponding GHA to deploy each time you push to GitHub
-usethis::use_pkgdown_github_pages()
-```
+- It verifies that all functions are properly documented, using both roxygen2 annotations and the contents of the man/ directory.
+- It ensures that the namespace is consistent and that all exported/imported functions are correctly declared.
+- It checks that the overall package structure follows best practices and conforms to R package standards.
+- It runs any unit tests to ensure that the code behaves as expected.
+- It flags any code issues, such as formatting problems, warnings, or potential errors.
+- It checks for proper handling and declaration of package dependencies.
+- If your package includes vignettes, it attempts to build and render them to confirm that they compile successfully.
 
 
 
@@ -690,20 +949,67 @@ usethis::use_pkgdown_github_pages()
 .pull-right[
 
 ```yaml
-# _pkgdown.yml
-url: https://edgar-treischl.github.io/ProjectX/
-template:
-  bootstrap: 5
-  bootswatch: litera
-  bslib:
-    base_font: {google: "Solway"}
-    heading_font: {google: "Solway"}
-navbar:
-...
+── R CMD check results ──────────────── playertest2 0.1.0 ────
+Duration: 5.3s
+
+❯ checking DESCRIPTION meta-information ... WARNING
+  Non-standard license specification:
+    What license is it under?
+  Standardizable: FALSE
+
+❯ checking for future file timestamps ... NOTE
+  unable to verify current time
+
+0 errors ✔ | 1 warning ✖ | 1 note ✖
+Error: R CMD check found WARNINGs
+Execution halted
+
+Exited with status 1.
 ```
 
 
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+### Old Slides
+
+
+
+
 
 
 
@@ -876,15 +1182,15 @@ mysession$platform
 ```
 ##  setting  value
 ##  version  R version 4.4.2 (2024-10-31)
-##  os       macOS Sequoia 15.6.1
+##  os       macOS 26.0.1
 ##  system   aarch64, darwin20
 ##  ui       X11
 ##  language (EN)
 ##  collate  en_US.UTF-8
 ##  ctype    en_US.UTF-8
 ##  tz       Europe/Berlin
-##  date     2025-08-25
-##  pandoc   3.4 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/aarch64/ (via rmarkdown)
+##  date     2025-11-05
+##  pandoc   3.6.3 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/aarch64/ (via rmarkdown)
 ##  quarto   1.6.39 @ /usr/local/bin/quarto
 ```
 
