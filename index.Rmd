@@ -15,7 +15,9 @@ output:
       titleSlideClass: [center, middle]
 ---
 
-class: center, middle
+background-image: url("images/bg_web.png")
+background-size: cover
+class: left, bottom
 
 
 
@@ -46,24 +48,14 @@ bib <- ReadBib("PracticeR_FINAL.bib", check = FALSE)
 ui <- "- "
 ```
 
-
-
-
 ```{r best-features, echo=FALSE}
 #search
-xaringanExtra::use_search(show_icon = TRUE, position = "top-right")
+#xaringanExtra::use_search(show_icon = TRUE, position = "top-right")
 
 xaringanExtra::use_progress_bar(color = "#023047", location = "top")
-
-xaringanExtra::style_search(match_background = "black",
-                            input_background = "white",
-                            input_border = "black",
-                            match_current_background = "green")
-
-
 xaringanExtra::use_panelset()
-
 xaringanExtra::use_clipboard()
+xaringanExtra::use_tile_view()
 
 ```
 
@@ -72,54 +64,60 @@ xaringanExtra::use_clipboard()
 library(xaringanthemer)
 style_mono_accent(
   base_color = "black",
-  header_font_google = google_font("Lato"),
-  text_font_google   = google_font("Montserrat", "300", "300i"),
+  header_font_google = google_font("Commissioner"),
+  text_font_google   = google_font("EB Garamond"),
   code_font_google   = google_font("Fira Code")
 )
+
 ```
+
+
+
+
+
+
+
+
+
+  
 
 ```{r meta, echo=FALSE}
 library(metathis)
 meta() %>%
   meta_general(
-    description = "A overview how to put R code into production.",
+    description = "Slides: Put R Code in Production.",
     generator = "xaringan and remark.js"
   ) %>% 
-  meta_name("github-repo" = "edgar-treischl/Workshop_GitHubIntro") %>% 
+  meta_name("github-repo" = "edgar-treischl/slidesRinProduction") %>% 
   meta_social(
-    title = "Make it reproducibleR: Put R in Production",
-    url = "https://edgar-treischl.github.io/Workshop_reproducibleR/",
+    title = "Put R in Production",
+    url = "https://edgar-treischl.github.io/slidesRinProduction/",
     og_type = "website",
-    og_author = "Edgar J. Treischl"
+    og_author = "Edgar J. Treischl",
+    image = "https://edgar-treischl.github.io/slidesRinProduction
+/images/preview.png",
+    image_alt = "Preview Slide"
   )
 ```
 
 
-  
-# R Package Development
+```{r, results='asis', echo=FALSE}
+cat(readLines("github-corner.html"), sep = "\n")
+```
 
-## Work in Progess
 
-.large[Dr. Edgar J. Treischl] <br>
-<a href="http://www.edgar-treischl.de" target="_blank">www.edgar-treischl.de</a>
+<h1 style="font-family: 'Bangers', sans-serif; font-size: 65px; color: #ffff;">R Package</h1>
+<h1 style="font-family: 'Bangers', sans-serif; font-size: 65px; color: #ffff;">Development</h1>
 <br/>
-<br/>
-.large[Last update: `r Sys.Date()`]
-<br/>
-<br/>
-This presentation is licensed under a CC-BY-NC 4.0 license.
-You may copy, distribute, and use the slides in your own work, as long as you give attribution to the original author on each slide that you use. Commercial use of the contents of these slides is not allowed.
+<p><a href="http://www.edgar-treischl.de" target="_blank" style="font-size: 35px; color: #ffff;">Edgar J. Treischl</a></p>
 
-<div class="remark-footer">
-  <!-- Left-aligned image -->
-  <img src="images/by-nceu.png" alt="Image left" width="150px" class="footer-left"/>
-  
-  <!-- Right-aligned GitHub logo -->
-  <a href="https://github.com/edgar-treischl/Workshop_reproducibleR" target="_blank">
-    <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" 
-         alt="GitHub logo" class="footer-right"/>
-  </a>
-</div>
+<br/>
+.white[Last update: `r Sys.Date()`]
+<br/>
+<h4 style = "color:#ffff; text-align: right;">Press `r emoji::emoji("o")` or `r emoji::emoji("arrow_right")`</h4>
+
+
+<div class="remark-footer"><a href="https://unsplash.com/de/@sajjadahmadi" target="_blank" style="color: gray;">Images: Sajjad Ahmadi</a></div>
 
 
 
@@ -241,19 +239,22 @@ background-size: 8%
 .pull-left[
 
 ```{r, eval=FALSE}
-#usethis creates config file: => _pkgdown.yml config file
 usethis::use_pkgdown()
-
-#Build the website via:
-pkgdown::build_site()
+#> creates config file: => _pkgdown.yml
 ```
 
-### `r emoji::emoji("rocket")` via GitHub Actions:
+#### Use `_pkgdown.yml` to define the website specs:
 
-```{r, eval=FALSE}
-#Add corresponding GHA to deploy each time you push to GitHub
-usethis::use_pkgdown_github_pages()
+```yaml
+# _pkgdown.yml
+url: https://edgar-treischl.github.io/ProjectX/
+template:
+  bootstrap: 5
+  bootswatch: litera
+navbar:
+...
 ```
+
 
 
 
@@ -262,17 +263,18 @@ usethis::use_pkgdown_github_pages()
 
 .pull-right[
 
-```yaml
-# _pkgdown.yml
-url: https://edgar-treischl.github.io/ProjectX/
-template:
-  bootstrap: 5
-  bootswatch: litera
-  bslib:
-    base_font: {google: "Solway"}
-    heading_font: {google: "Solway"}
-navbar:
-...
+#### Build the website locally via:
+
+```{r, eval=FALSE}
+# Build the site locally
+pkgdown::build_site()
+```
+
+#### Or via GitHub `r emoji::emoji("rocket")`:
+
+```{r, eval=FALSE}
+#Add corresponding GHA to deploy the website
+usethis::use_pkgdown_github_pages()
 ```
 
 
@@ -284,7 +286,7 @@ background-image: url("https://i.gifer.com/8Bx3.gif")
 background-size: cover
 class: bottom, center
 
-# .black[... Packages makes it easy to test our code `r emoji::emoji("silly")`] 
+### .black[The package structure makes it easy to test the code `r emoji::emoji("silly")`] 
 
 
 <div class="remark-footer"><a href="https://gifer.com/de/8Bx3" target="_blank" style="color: black;">Source: Gifer</a></div>
@@ -580,12 +582,15 @@ usethis::use_github_action()
 
 ---
 
-## 02: Steps to create a package
+## 02: Create an R package ...
+
 
 .pull-left[
 
-1. Create a new repository on GitHub/GitLab and clone it
-2. Create a package a package via: 
+### ... with usethis
+
+1. Create a new Git repository and clone it ...
+2. Create a new package via: 
 
 ```{r, eval=FALSE}
 # create_package adds ...
@@ -597,25 +602,12 @@ usethis::create_package(here::here())
 
 .pull-right[
 
-```{bash
-Package: TestPackage
-Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
-Encoding: UTF-8
-LazyData: true
+### ... or use the Project Wizard
 
-```
+<figure>
+    <a href="https://devtools.r-lib.org" target="_blank"><img src="images/wizard.png" alt="www.edgar-treischl.de" width="95%" align="right"/>
+</figure>
+
 
 
 ]
@@ -624,27 +616,29 @@ LazyData: true
 
 ---
 
-## 02: Steps to create a package II
+## 02: Create an R package II
 
 .pull-left[
 
-The function sets up the following components:
+The function sets up the following structure/files:
 
-- DESCRIPTION File: A “package manifest” used by R and CRAN.
+- **DESCRIPTION**: A “package manifest” used by R and CRAN
 
-- R Folder: For all R Files.
+- *R/*: Folder for all R Files
 
-- man folder: Contains automatically generated .Rd documentation files, created by roxygen2. 
+- *man/* : Contains automatically generated .Rd documentation files, created by roxygen2
 
-- NAMESPACE: Lists functions which are exposed to users (exported) and which are internal. Automatically generated by roxygen2 (e.g., @export).
+- **NAMESPACE**: Lists functions which are exposed to users (exported) and which are internal. Automatically generated by roxygen2 (e.g., @export)
 
-- .Rbuildignore File: All files and folders that will be ignored when building the package.
+- **.Rbuildignore**: All files and folders that will be ignored when building the package
 
 
 
 ]
 
 .pull-right[
+
+#### DESCRIPTION file:
 
 ```{bash
 Package: TestPackage
@@ -660,9 +654,7 @@ Authors@R: c(
   )
 Description: More about what it does (maybe more than one line).
     Continuation lines should be indented.
-License: What license is it under?
-Encoding: UTF-8
-LazyData: true
+...
 
 ```
 
@@ -727,12 +719,11 @@ hello()
 
 ---
 
-## 03: Develop
+## Load it all `r emoji::emoji("rocket")`
 
 
 .pull-left[
 
-### Load it all `r emoji::emoji("rocket")`
 
 - ´load_all()´ parses all R files located in the R/ directory: This means devtools reads the R scripts in that folder, processes the code, and converts it into internal R objects that can be used immediately in your session.
 
@@ -757,7 +748,7 @@ hello()
 
 ---
 
-## 03: Develop II
+## Load it all II
 
 #### Next steps
 
@@ -784,7 +775,7 @@ hello("Julian")
 
 ---
 
-## 03: Develop III
+## Load it all III
 
 - Declare new dependency
 
@@ -901,13 +892,23 @@ devtools::document()
 # ℹ It already exists and was not generated by roxygen2.
 ```
 
+---
+background-image: url("https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnVmNnQzM2NzYWJuNDR5M2xoZGxtbnU4eWg2OWdsaWptMjVhMDg4dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l1J9JOEZqVI4JFEk0/giphy.gif")
+background-size: contain
+class: bottom, center
 
+
+
+<br>
+## .white[04 Deploy] 
+
+<div class="remark-footer"><a href="https://giphy.com/gifs/batman-robin-laundry-l1J9JOEZqVI4JFEk0" target="_blank" style="color: black;">Source: Threadless</a></div>
 
 
 
 ---
 
-## devtools::check()
+## R CMD Check
 
 .pull-left[
 
@@ -920,7 +921,7 @@ devtools::document()
 - It checks for proper handling and declaration of package dependencies.
 
 
-
+=> devtools::check()
 
 ]
 
@@ -953,13 +954,8 @@ Exited with status 1.
 
 
 
----
-## AmtSchulGit 
 
 
-<figure>
-    <a href="https://edgar-treischl.pages.gitlab.lrz.de/AmtSchulGit/" target="_blank"><img src="images/amtschulgit.png" alt="www.edgar-treischl.de" width="30%" align="center"/>
-</figure>
 
 
 
@@ -984,210 +980,13 @@ Exited with status 1.
 
 
 
----
 
-### Old Slides
 
 
 
 
 
 
-
-
-
----
-background-image: url("https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnVmNnQzM2NzYWJuNDR5M2xoZGxtbnU4eWg2OWdsaWptMjVhMDg4dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l1J9JOEZqVI4JFEk0/giphy.gif")
-background-size: contain
-class: bottom, center
-
-
-
-<br>
-## .white[Deploy] 
-
-<div class="remark-footer"><a href="https://giphy.com/gifs/batman-robin-laundry-l1J9JOEZqVI4JFEk0" target="_blank" style="color: black;">Source: Threadless</a></div>
-
----
-## 04: renv
-
-<div class="info-box">
-  <i>`r emoji::emoji("parrot")`</i> "The renv package helps you create reproducible environments for your R projects. Use renv to make your R projects more isolated, portable and reproducible" (Ushey and Wickham 2024).
-</div>
-
-.pull-left[
-
-- Isolated: Installing a new or updated package for one project won’t break your other projects, and vice versa.
-
-- Portable: Easily transport your projects from one computer to another, even across different platforms.
-
-- Reproducible: renv records the exact package versions you depend on, and ensures those exact versions are the ones that get installed." (Ushey and Wickham)
-
-]
-
-.pull-right[
-<figure>
-    <a href="https://rstudio.github.io/renv/index.html" target="_blank"><img src="https://rstudio.github.io/renv/logo.svg" alt="The renv package" width="65%"/>
-</figure>
-]
-
-
----
-background-image: url(https://rstudio.github.io/renv/logo.svg)
-background-position: 90% 5%
-background-size: 8%
-
-## 04: renv
-
-.pull-left[
-
-- Use `renv::init()` to initiate a new project:
-  - Gives you the power of isolation because it creates a project library 
-  - Creates a .Rprofile file to load the renv library as long as renv is active
-  - The package creates a renv.lock with metadata about every project package so that it can be installed on a new machine
-
-- Use `renv::snapshot()` to create a snapshot of the project environment
-
-- Use `renv::restore()` to restore the project environment
-
-
-
-
-
-]
-
-.pull-right[
-
-<figure>
-    <a href="https://rstudio.github.io/renv/index.html" target="_blank"><img src="https://rstudio.github.io/renv/articles/renv.png" alt="www.edgar-treischl.de" width="95%"/>
-</figure>
-
-
-]
-
-
----
-## 04: renv lockfile
-
-```shell
-  "R": {
-    "Version": "4.4.1",
-    "Repositories": [
-      {
-        "Name": "CRAN",
-        "URL": "https://cloud.r-project.org"
-      }
-    ]
-  },
-  "Packages": {
-    "markdown": {
-      "Package": "markdown",
-      "Version": "1.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "4584a57f565dd7987d59dda3a02cfb41"}
-    }
-```
-
-
-
-
-
-
----
-## 04: Docker
-
-.pull-left[
-
-Create, deploy, and run applications in containers:
-
-- Container: A standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another.
-
-- Dockerfile: A text document that contains all the commands a user could call on the command line to assemble an image.
-
-- Rocker: A project that provides different Docker images for R. Those bundles include the OS, R, (RStudio), and packages.
-
-
-]
-
-.pull-right[
-
-<figure>
-    <a href="https://www.docker.com" target="_blank"><img src="images/docker.png" width="95%"/>
-</figure>
-
-]
-
-
-
----
-background-image: url(https://rocker-project.org/img/rocker.png)
-background-position: 90% 5%
-background-size: 8%
-
-## 04: Docker and Rocker
-
-
-<div class="info-box"><i>`r emoji::emoji("parrot")`</i> The Rocker Project provides a collection of (Linux) containers suited for different needs. Find a base image to extend or images with popular software and optimized libraries pre-installed. (Rocker website) </div>
-
-
-
-```shell
-# Use a base R image from rocker project (official R Docker image)
-FROM rocker/r-ver:4.4.1
-
-# Set a working directory in the container
-WORKDIR /app
-
-# Copy a simple R script into the container
-COPY hello.R .
-
-# Install necessary R packages (e.g., ggplot2)
-RUN R -e "install.packages(c('ggplot2'), repos='https://cloud.r-project.org/')"
-
-# Set the entry point to run the R script
-ENTRYPOINT ["Rscript", "hello.R"]
-  
-```
-
-
----
-## 04: sessioninfo
-
-```{r}
-mysession <- sessioninfo::session_info()
-mysession$platform
-```
-
-
-Set the parameter: `to_file = "session.log"`  to export a log file
-
-
----
-## 04: sessioninfo
-
-
-
-```{r, eval = FALSE}
-sessioninfo::session_info(info = "external")
-```
-
-```bash
-═ Session info ═══════════════════════════════════════════════════════════════
-─ External software ──────────────────────────────────────────────────────────
- setting        value
- cairo          1.17.6
- cairoFT
- pango          1.50.14
- png            1.6.40
- jpeg           9.5
- tiff           LIBTIFF, Version 4.5.0
- tcl            8.6.13
- curl           8.7.1
- ...
-──────────────────────────────────────────────────────────────────────────────
-
-```
 
 
 
