@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
 .remark-code, .remark-inline-code {
   max-width: 100%;
   overflow-x: auto;
@@ -24,7 +26,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
   display: flex;
   align-items: center;        /* Vertically align the emoji and text */
-  max-width: 90%; 
+  max-width: 90%;
 }
 
 .info-box i {
@@ -98,7 +100,7 @@ blockquote.info-box {
   align-items: center;  /* This ensures vertical centering */
   padding: 0 10px;  /* Add padding if necessary */
   font-family: "Montserrat", sans-serif;
-  font-size: 0.5em;  
+  font-size: 0.5em;
 }
 
 
@@ -114,5 +116,6 @@ blockquote.info-box {
   width: 50px;  /* Adjust width for GitHub logo */
   height: auto;
 }
+
 
 

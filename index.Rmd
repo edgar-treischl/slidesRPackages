@@ -172,6 +172,8 @@ cat(readLines("github-corner.html"), sep = "\n")
 
 - *Documentation*: A package allows to include automatic documentation (help files, website, vignettes) , making it much easier for others - and the future yourself - to understand how it works.
 
+- `r emoji::emoji("parrot")` Further Goodies
+
 
 ]
 
@@ -209,21 +211,6 @@ cat(readLines("github-corner.html"), sep = "\n")
 
 
 
-
-
-
-
-
----
-background-image: url(https://pkgdown.r-lib.org/logo.png)
-background-position: 90% 5%
-background-size: 8%
-
-## 01 Document: pkgdown
-<br>
-<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:97%;">
-  <iframe src="https://pkgdown.r-lib.org" width="500" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
-</div>
 
 
 
@@ -396,52 +383,42 @@ styler::style_text(
 ]
 
 
-There a goodies if you develop an R package:
+There are even more goodies `r emoji::emoji("bad")` if you develop an R package:
 
 ```{r, eval=FALSE}
 styler::style_pkg()
 ```
 
 
+
+
 ---
-background-image: url(https://github.com/r-lib/lintr/blob/main/man/figures/logo.png?raw=true)
-background-position: 90% 5%
-background-size: 8%
+
+# And keep in mind ...
 
 
-## 01: Lint
-
-
-
-.pull-left[
-
-<div class="info-box">
-  <i>`r emoji::emoji("parrot")`️</i>"lintr provides static code analysis for R. It checks for adherence to a given style, identifying syntax errors and possible semantic issues, then reports them to you so you can take action" (Hester et al. 2024).
+<div style="display:flex; justify-content:center; gap:20px;">
+  <img src="images/memer1.png" style="width:40%;">
+  <img src="images/memer2.png" style="width:40%;">
 </div>
 
 
-]
+---
 
-.pull-right[
+# And keep in mind ...
 
-```{r}
-lintr::lint(text = 'myFunction <- function(x, y) {
-  if (sum(x, y) == 10) {
-    print("Sum is correct!")
-  }
-}')
-```
-
-]
+<br>
+<div style="display:flex; justify-content:center; gap:20px;">
+  <img src="images/memer3.png" style="width:45%;">
+</div>
 
 
 
-There are even more goodies `r emoji::emoji("bad")` if you develop an R package:
 
-```{r, eval=FALSE}
-#lintr::lint_dir(path = "R")
-lintr::lint_package()
-```
+
+
+
+
 
 
 ---
@@ -789,10 +766,13 @@ hello("Julian")
 
 #### For example:
 
-```
+```{r, eval=FALSE}
 # Add praise to Imports
 usethis::use_package("praise")
+```
 
+
+```
 # ✔ Setting active project to "/Users/edgar/Develop/playertest".
 # ✔ Adding praise to Imports field in DESCRIPTION.
 # ☐ Refer to functions with `praise::fun()`.
@@ -828,7 +808,7 @@ background-size: 8%
 
 .pull-left[
 
-### Describe your functions and ...
+#### Describe the functions and ...
 
 <div class="info-box">
   <i>`r emoji::emoji("parrot")`️</i> "... roxygen2 will process your source code and comments to automatically generate .Rd files in man/, NAMESPACE, and, if needed, the Collate field in DESCRIPTION.". (Wickham and Csárdi 2024)
@@ -871,7 +851,7 @@ add <- function(x, y) {
 
 ## 03 Document: roxygen2
 
-- Let us add code documentation to the `hello()` function with roxygen2
+#### Let us add code documentation to the `hello()` function with roxygen2
 
 ```R
 #' Say hello to Someone
@@ -885,9 +865,9 @@ hello <- function(name) {
 }
 ```
 
-- Next, run devtools::document() to generate the documentation files based on your roxygen2 comments. 
+- Next, run devtools::document() to generate the documentation files
 
-- This will create or update the .Rd files in the man/ directory, which are used by R to provide help pages for your functions.
+- This will create or update the .Rd files in the man/ directory, which are used by R to provide help pages
 
 
 
@@ -895,10 +875,14 @@ hello <- function(name) {
 
 ## 03 Document: roxygen2
 
-```r
+```{r, eval=FALSE}
 # Update the documentation
 devtools::document()
+```
 
+
+
+```r
 # ℹ Updating playertest documentation
 # First time using roxygen2. Upgrading automatically...
 # Setting `RoxygenNote` to "7.3.2"
@@ -928,33 +912,31 @@ class: bottom, center
 
 .pull-left[
 
-- Install your package using `devtools::install()` or R Studio Build Pane.
+Install your package using `devtools::install()` or R Studio Build Pane:
 
-- Only after the installation, the package and all its functions are available next time you start R/RStudio.
+```{r, eval=FALSE}
+devtools::install()
+```
 
-- Keep in mind: The `load_all()` is for fast iteration, but does not replace the installation step.
+- Only after the installation, the package and all its functions are available next time you start R/RStudio
+
+- Keep in mind: The `load_all()` function is for fast iteration, but does not replace the installation step
 
 ]
 
 .pull-right[
 
 ```yaml
-── R CMD check results ──────────────── playertest2 0.1.0 ────
-Duration: 5.3s
+#> Installing playertest
+#> 'C:/Users/edgar/AppData/Local/Temp/Rtmp2f1Y7
+#> ── R CMD INSTALL ───────────────────────────────────────────────────────────── playertest ──
+#> ✔  checking for file 'C:\Users\edgar\Develop\playert
+#> ── preparing 'playertest':
+#> ✔  checking DESCRIPTION meta-information ...
+#> 
+...
+  
 
-❯ checking DESCRIPTION meta-information ... WARNING
-  Non-standard license specification:
-    What license is it under?
-  Standardizable: FALSE
-
-❯ checking for future file timestamps ... NOTE
-  unable to verify current time
-
-0 errors ✔ | 1 warning ✖ | 1 note ✖
-Error: R CMD check found WARNINGs
-Execution halted
-
-Exited with status 1.
 ```
 
 
@@ -976,8 +958,11 @@ Exited with status 1.
 - It flags any code issues, such as formatting problems, warnings, or potential errors.
 - It checks for proper handling and declaration of package dependencies.
 
+#### Run via R Studio Build Pane or:
 
-=> devtools::check()
+```{r, eval=FALSE}
+devtools::check()
+```
 
 ]
 
@@ -1008,6 +993,30 @@ Exited with status 1.
 
 
 
+---
+
+## Distribute the Package
+
+.pull-left[
+- Share the package via GitHub, GitLab, or Bitbucket for easy collaboration and version control.
+
+- For example, user may install your package directly from GitHub using the `remotes` package
+
+- Submit the package to CRAN for broader distribution and visibility within the R community.
+
+]
+
+.pull-right[
+
+#### Install from GitHub:
+
+```{r, eval=FALSE}
+remotes::install_github("username/repository")
+```
+
+<img src="https://i.gifer.com/D71m.gif" style="width: 55%"/>
+
+]
 
 
 
@@ -1070,9 +1079,7 @@ class: center, middle
 
 
 ## Thank you for your attention!
-<br/>
 
-<img src="https://i.gifer.com/D71m.gif" style="width: 40%"/>
 
 ]
 
