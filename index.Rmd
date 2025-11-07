@@ -673,14 +673,13 @@ Example: `R/Hello.R`
 
 ```{r
 # Hello, world!
-...
 #
 # Some useful keyboard shortcuts for package authoring:
 #
 #   Install Package:           'Cmd + Shift + B'
 #   Check Package:             'Cmd + Shift + E'
 #   Test Package:              'Cmd + Shift + T'
-
+...
 hello <- function() {
   print("Hello, world!")
 }
@@ -696,17 +695,15 @@ hello <- function() {
 #### Install via:
 
 ```r
-# Install the package
+#> Install the package
 devtools::install()
 ```
 
 #### Test via:
 
 ```r
-# Load the package
+#> Load the package and call the function
 library(playertest)
-
-# Call the hello function
 hello()
 
 #> [1] "Hello, world!"
@@ -725,13 +722,13 @@ hello()
 .pull-left[
 
 
-- ´load_all()´ parses all R files located in the R/ directory: This means devtools reads the R scripts in that folder, processes the code, and converts it into internal R objects that can be used immediately in your session.
+- ´load_all()´ parses all R files located in the R/ directory: `devtools` reads all R scripts in `R/`, processes the code, and converts it into internal R objects that can be used immediately
 
 - It loads all exported functions into your session (@export).
 
 - It compiles documentation if you’re using roxygen2
 
-=> This acts like hot-reloading for R development, it instantly reloads your package code into your session without needing a reinstall.
+`r emoji::emoji("parrot")` This acts like hot-reloading for R development, it instantly reloads your package code into your session without needing a reinstall.
 
 ]
 
@@ -777,18 +774,38 @@ hello("Julian")
 
 ## Load it all III
 
-- Declare new dependency
+.pull-left[
+
+
+- Remember: If you add external packages, you need to declare those dependencys in your DESCRIPTION file.
+
+- To put it differently: If your package use other packages, they need to be installed when someone else installs your package.
 
 - Add the package to your DESCRIPTION file using the `use_package()` function from the usethis package.
 
+]
+
+.pull-right[
+
+#### For example:
+
 ```
-# Add a package to the DESCRIPTION
+# Add praise to Imports
 usethis::use_package("praise")
 
 # ✔ Setting active project to "/Users/edgar/Develop/playertest".
 # ✔ Adding praise to Imports field in DESCRIPTION.
 # ☐ Refer to functions with `praise::fun()`.
 ```
+
+
+
+]
+
+<br>
+`r emoji::emoji("parrot")` Remember to run `devtools::document()` after modifying the DESCRIPTION file to ensure that all dependencies are correctly recognized and documented. The same applies when you add new functions to your package.
+
+
 
 
 
@@ -903,6 +920,45 @@ class: bottom, center
 ## .white[04 Deploy] 
 
 <div class="remark-footer"><a href="https://giphy.com/gifs/batman-robin-laundry-l1J9JOEZqVI4JFEk0" target="_blank" style="color: black;">Source: Threadless</a></div>
+
+
+---
+
+## Install the Package
+
+.pull-left[
+
+- Install your package using `devtools::install()` or R Studio Build Pane.
+
+- Only after the installation, the package and all its functions are available next time you start R/RStudio.
+
+- Keep in mind: The `load_all()` is for fast iteration, but does not replace the installation step.
+
+]
+
+.pull-right[
+
+```yaml
+── R CMD check results ──────────────── playertest2 0.1.0 ────
+Duration: 5.3s
+
+❯ checking DESCRIPTION meta-information ... WARNING
+  Non-standard license specification:
+    What license is it under?
+  Standardizable: FALSE
+
+❯ checking for future file timestamps ... NOTE
+  unable to verify current time
+
+0 errors ✔ | 1 warning ✖ | 1 note ✖
+Error: R CMD check found WARNINGs
+Execution halted
+
+Exited with status 1.
+```
+
+
+]
 
 
 
