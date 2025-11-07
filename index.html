@@ -119,8 +119,8 @@ class: left, bottom
 
 ### 01 Develop 💭
 ### 02 Build 🚧
-### 03 Document 📄
-### 04 Deploy 🏃‍➡️
+### 03 Document 📜
+### 04 Deploy 🏃‍♀️
 
 
 
@@ -255,7 +255,7 @@ background-image: url("https://i.gifer.com/8Bx3.gif")
 background-size: cover
 class: bottom, center
 
-### .black[The package structure makes it easy to test the code 👻] 
+### .black[The package structure makes it easy to test the code 😜] 
 
 
 &lt;div class="remark-footer"&gt;&lt;a href="https://gifer.com/de/8Bx3" target="_blank" style="color: black;"&gt;Source: Gifer&lt;/a&gt;&lt;/div&gt;
@@ -422,14 +422,14 @@ class: bottom, center
 
 
 
-## .white[Let's get started ... 🙈] 
+## .white[Let's get started ... 🙊] 
 
 &lt;div class="remark-footer"&gt;&lt;a href="https://gifer.com/de/8rTu" target="_blank" style="color: black;"&gt;Source: Mark Hamill&lt;/a&gt;&lt;/div&gt;
 
 
 
 ---
-## 02: Devtools does the Heavy Lifting 🏋️‍♂️
+## 02: Devtools does the Heavy Lifting 🏋️‍♀️
 
 &lt;div class="info-box"&gt;
   &lt;i&gt;🦜&lt;/i&gt; "The aim of devtools is to make package development easier by providing R functions that simplify and expedite common tasks. R Packages is a book based around this workflow." (Wickham et al. 2022)
@@ -648,10 +648,11 @@ Example: `R/Hello.R`
 #
 # Some useful keyboard shortcuts for package authoring:
 #
-#   Install Package:           'Cmd + Shift + B'
-#   Check Package:             'Cmd + Shift + E'
-#   Test Package:              'Cmd + Shift + T'
-...
+#   Install Package: 'Cmd + Shift + B'
+#   Check Package:   'Cmd + Shift + E'
+#   Test Package:    'Cmd + Shift + T'
+
+
 hello &lt;- function() {
   print("Hello, world!")
 }
@@ -700,7 +701,11 @@ hello()
 
 - It compiles documentation if you’re using roxygen2
 
-🦜 This acts like hot-reloading for R development, it instantly reloads your package code into your session without needing a reinstall.
+
+&lt;div class="info-box"&gt;
+  &lt;i&gt;🦜&lt;/i&gt; This acts like hot-reloading for R development, it instantly reloads your package code into your session without needing a reinstall.
+&lt;/div&gt;
+
 
 ]
 
@@ -743,7 +748,7 @@ hello("Julian")
 ```
 
 ```
-## [1] "Hello Julian, you are awesome!"
+## [1] "Hello Julian, you are praiseworthy!"
 ```
 
 
@@ -785,8 +790,9 @@ usethis::use_package("praise")
 ]
 
 &lt;br&gt;
-🦜 Remember to run `devtools::document()` after modifying the DESCRIPTION file to ensure that all dependencies are correctly recognized and documented. The same applies when you add new functions to your package.
-
+&lt;div class="info-box"&gt;
+  &lt;i&gt;🦜&lt;/i&gt; Remember to run devtools::document() after modifying the DESCRIPTION file to ensure that all dependencies are correctly recognized and documented. The same applies when you add new functions to your package.
+&lt;/div&gt;
 
 
 
@@ -925,7 +931,10 @@ devtools::install()
 
 - Only after the installation, the package and all its functions are available next time you start R/RStudio
 
-- Keep in mind: The `load_all()` function is for fast iteration, but does not replace the installation step
+&lt;div class="info-box"&gt;
+  &lt;i&gt;🦜&lt;/i&gt; Keep in mind: The load_all function is for fast iteration, but does not replace the installation step.
+&lt;/div&gt;
+
 
 ]
 

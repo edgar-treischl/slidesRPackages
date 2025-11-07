@@ -653,10 +653,11 @@ Example: `R/Hello.R`
 #
 # Some useful keyboard shortcuts for package authoring:
 #
-#   Install Package:           'Cmd + Shift + B'
-#   Check Package:             'Cmd + Shift + E'
-#   Test Package:              'Cmd + Shift + T'
-...
+#   Install Package: 'Cmd + Shift + B'
+#   Check Package:   'Cmd + Shift + E'
+#   Test Package:    'Cmd + Shift + T'
+
+
 hello <- function() {
   print("Hello, world!")
 }
@@ -705,7 +706,11 @@ hello()
 
 - It compiles documentation if you’re using roxygen2
 
-`r emoji::emoji("parrot")` This acts like hot-reloading for R development, it instantly reloads your package code into your session without needing a reinstall.
+
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`</i> This acts like hot-reloading for R development, it instantly reloads your package code into your session without needing a reinstall.
+</div>
+
 
 ]
 
@@ -783,8 +788,9 @@ usethis::use_package("praise")
 ]
 
 <br>
-`r emoji::emoji("parrot")` Remember to run `devtools::document()` after modifying the DESCRIPTION file to ensure that all dependencies are correctly recognized and documented. The same applies when you add new functions to your package.
-
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`</i> Remember to run devtools::document() after modifying the DESCRIPTION file to ensure that all dependencies are correctly recognized and documented. The same applies when you add new functions to your package.
+</div>
 
 
 
@@ -920,7 +926,10 @@ devtools::install()
 
 - Only after the installation, the package and all its functions are available next time you start R/RStudio
 
-- Keep in mind: The `load_all()` function is for fast iteration, but does not replace the installation step
+<div class="info-box">
+  <i>`r emoji::emoji("parrot")`</i> Keep in mind: The load_all function is for fast iteration, but does not replace the installation step.
+</div>
+
 
 ]
 
