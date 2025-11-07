@@ -394,7 +394,7 @@ styler::style_pkg()
 
 ---
 
-# And keep in mind ...
+# And Keep in Mind ...
 
 
 <div style="display:flex; justify-content:center; gap:20px;">
@@ -405,7 +405,7 @@ styler::style_pkg()
 
 ---
 
-# And keep in mind ...
+# And Keep in Mind ...
 
 <br>
 <div style="display:flex; justify-content:center; gap:20px;">
@@ -436,7 +436,7 @@ class: bottom, center
 
 
 ---
-## 02: devtools does the heavy lifting `r emoji::emoji("weight")`
+## 02: Devtools does the Heavy Lifting `r emoji::emoji("weight")`
 
 <div class="info-box">
   <i>`r emoji::emoji("parrot")`</i> "The aim of devtools is to make package development easier by providing R functions that simplify and expedite common tasks. R Packages is a book based around this workflow." (Wickham et al. 2022)
@@ -927,13 +927,12 @@ devtools::install()
 .pull-right[
 
 ```yaml
-#> Installing playertest
-#> 'C:/Users/edgar/AppData/Local/Temp/Rtmp2f1Y7
-#> ── R CMD INSTALL ───────────────────────────────────────────────────────────── playertest ──
-#> ✔  checking for file 'C:\Users\edgar\Develop\playert
-#> ── preparing 'playertest':
-#> ✔  checking DESCRIPTION meta-information ...
-#> 
+Installing playertest
+'C:/Users/edgar/AppData/Local/Temp/Rtmp2f1Y7
+── R CMD INSTALL ───────────────────────────────────────────────────────────── playertest ──
+✔  checking for file 'C:\Users\edgar\Develop\playert
+── preparing 'playertest':
+✔  checking DESCRIPTION meta-information
 ...
   
 
@@ -958,7 +957,7 @@ devtools::install()
 - It flags any code issues, such as formatting problems, warnings, or potential errors.
 - It checks for proper handling and declaration of package dependencies.
 
-#### Run via R Studio Build Pane or:
+#### Run via R Studio or build pane:
 
 ```{r, eval=FALSE}
 devtools::check()
@@ -1004,6 +1003,7 @@ Exited with status 1.
 
 - Submit the package to CRAN for broader distribution and visibility within the R community.
 
+
 ]
 
 .pull-right[
@@ -1013,8 +1013,11 @@ Exited with status 1.
 ```{r, eval=FALSE}
 remotes::install_github("username/repository")
 ```
+<br>
+<div style="display:flex; justify-content:center; align-items:center;">
+  <img src="https://i.gifer.com/D71m.gif" style="width:55%;">
+</div>
 
-<img src="https://i.gifer.com/D71m.gif" style="width: 55%"/>
 
 ]
 
@@ -1076,8 +1079,8 @@ class: center, middle
 ]
 
 .right-column[
-
-
+<br>
+<br>
 ## Thank you for your attention!
 
 
