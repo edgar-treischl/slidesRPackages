@@ -109,7 +109,9 @@ cat(readLines("github-corner.html"), sep = "\n")
 <h1 style="font-family: 'Bangers', sans-serif; font-size: 65px; color: #ffff;">R Package</h1>
 <h1 style="font-family: 'Bangers', sans-serif; font-size: 65px; color: #ffff;">Development</h1>
 <br/>
-<p><a href="http://www.edgar-treischl.de" target="_blank" style="font-size: 35px; color: #ffff;">Edgar J. Treischl</a></p>
+
+<h3><a href="http://www.edgar-treischl.de" target="_blank" style="color:#C51717;">Dr. Edgar J. Treischl</a></h3>
+
 
 <br/>
 .white[Last update: `r Sys.Date()`]
