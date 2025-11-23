@@ -1039,65 +1039,24 @@ remotes::install_github("username/repository")
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ---
-class: center, middle
-
-.left-column[
-
-## Keep in touch
-
-#### <a href="https://edgar-treischl.de" target="_blank"><img src="https://avatars.githubusercontent.com/u/77931249?s=400&u=eaf1d0871b643dd32cc0ff9f777edef28e6569a8&v=4" alt="www.edgar-treischl.de" width="25%"/><br/>www.edgar-treischl.de</a>
-<br/>
-
-#### <a href="https://github.com/edgar-treischl/Workshop_reproducibleR" target="_blank"><img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="https://github.com/edgar-treischl" width="30%"/><br/>edgar-treischl</a>
+class: right, middle
 
 
-]
-
-.right-column[
-<br>
-<br>
 ## Thank you for your attention!
 
 
-]
+<img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/77931249?s=400&u=eaf1d0871b643dd32cc0ff9f777edef28e6569a8&v=4" width="150px"/>
 
 
+
+[`r icons::fontawesome("rocket")` www.edgar-treischl.de](https://www.edgar-treischl.de)
+
+[`r icons::fontawesome("github")` edgar-treischl](https://github.com/edgar-treischl)
+
+[`r icons::fontawesome("envelope")` edgar.treischl@isb.bayern.de](mailto:edgar.treischl@isb.bayern.de)
+
+[`r icons::fontawesome("file-pdf")` Slides](https://github.com/edgar-treischl/slidesRPackages/blob/main/r_packages.pdf)
 
 
 
